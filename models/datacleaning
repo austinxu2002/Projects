@@ -1,0 +1,35 @@
+-- models/cleaned_311_noise_complaints.sql
+
+SELECT DISTINCT
+    unique_key,  -- Unique identifier for complaints
+    complaint_type,  -- Type of complaint (e.g., noise)
+    created_date,  -- Date complaint was created
+    descriptor,  -- Additional details of complaint
+    latitude,  -- Latitude of complaint location
+    longitude,  -- Longitude of complaint location
+    city,  -- City where complaint occurred
+    borough,  -- Borough where complaint occurred
+    location_type,  -- Type of location (e.g., residential, commercial)
+    incident_zip,  -- ZIP code of the complaint location
+    incident_address  -- Address of the complaint
+FROM `cis-4400-group-project-443304.raw_data.311_Noise_Complaints`
+WHERE created_date IS NOT NULL  -- Ensure complaints have a date
+  AND latitude IS NOT NULL  -- Ensure location is valid
+  AND longitude IS NOT NULL
+  AND borough IS NOT NULL;  -- Ensure borough is specified
+
+-- models/cleaned_dob_stalled_construction_sites.sql
+
+SELECT DISTINCT
+    complaint_number,  -- Unique complaint number
+    complaint_date,  -- Date complaint was filed
+    borough,  -- Borough where the issue occurred
+    bin,  -- Building Identification Number
+    house_number,  -- Street address (house number)
+    street_name,  -- Street address (street name)
+    zip_code,  -- ZIP code of the issue location
+    community_board  -- Community board where the issue occurred
+FROM `cis-4400-group-project-443304.raw_data.DOB_Stalled_Construction_Sites`
+WHERE complaint_date IS NOT NULL  -- Ensure complaints have a date
+  AND borough IS NOT NULL  -- Ensure borough is specified
+  AND zip_code IS NOT NULL;  -- Ensure ZIP code is available
