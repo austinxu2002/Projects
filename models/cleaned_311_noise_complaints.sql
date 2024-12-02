@@ -1,5 +1,6 @@
--- models/cleaned_311_noise_complaints.sql
+{{ config(alias='311_Noise_Complaints_Cleaned', materialized='table') }}
 
+-- Cleaned 311 Noise Complaints
 SELECT DISTINCT
     unique_key,  -- Unique identifier for complaints
     complaint_type,  -- Type of complaint (e.g., noise)
@@ -18,18 +19,7 @@ WHERE created_date IS NOT NULL  -- Ensure complaints have a date
   AND longitude IS NOT NULL
   AND borough IS NOT NULL;  -- Ensure borough is specified
 
--- models/cleaned_dob_stalled_construction_sites.sql
 
-SELECT DISTINCT
-    complaint_number,  -- Unique complaint number
-    complaint_date,  -- Date complaint was filed
-    borough,  -- Borough where the issue occurred
-    bin,  -- Building Identification Number
-    house_number,  -- Street address (house number)
-    street_name,  -- Street address (street name)
-    zip_code,  -- ZIP code of the issue location
-    community_board  -- Community board where the issue occurred
-FROM `cis-4400-group-project-443304.raw_data.DOB_Stalled_Construction_Sites`
-WHERE complaint_date IS NOT NULL  -- Ensure complaints have a date
-  AND borough IS NOT NULL  -- Ensure borough is specified
-  AND zip_code IS NOT NULL;  -- Ensure ZIP code is available
+
+
+
