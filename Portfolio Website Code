@@ -2,7 +2,9 @@ from flask import Flask, render_template_string, url_for
 
 app = Flask(__name__)
 
-# Home Page
+# -----------------------------
+# HOME PAGE (No "Home" button)
+# -----------------------------
 @app.route('/')
 def home():
     return render_template_string('''
@@ -78,7 +80,6 @@ def home():
             <header>
                 <h1>Welcome to My Portfolio</h1>
                 <nav>
-                    <a href="/">Home</a>
                     <a href="/about">About Me</a>
                     <a href="/school-projects">School Projects</a>
                     <a href="/personal-projects">Personal Projects</a>
@@ -103,15 +104,15 @@ def home():
                     music.volume = value;
                 }
 
-                // Ensure the music is paused when the page loads
                 music.pause();
             </script>
         </body>
         </html>
     ''')
 
-
-# About Me Page
+# -----------------------------
+# ABOUT ME PAGE (UPDATED BIO)
+# -----------------------------
 @app.route('/about')
 def about():
     return render_template_string('''
@@ -124,7 +125,7 @@ def about():
             <style>
                 body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
                 section { padding: 20px; }
-                h2 { color: #333; }
+                h2 { color: #007BFF; }
                 img { 
                     width: 250px; 
                     height: 250px; 
@@ -141,68 +142,49 @@ def about():
                     border: none; 
                     border-radius: 5px; 
                 }
-                button:hover { 
-                    background-color: #0056b3; 
-                }
-                .social-icons {
-                    margin-top: 20px;
-                }
+                button:hover { background-color: #0056b3; }
+                .social-icons { margin-top: 20px; }
                 .social-icons a {
                     margin: 0 10px;
                     text-decoration: none;
-                    color: #333;
+                    color: #007BFF;
                     font-size: 24px;
                     transition: color 0.3s;
                 }
-                .social-icons a:hover {
-                    color: #007BFF;
-                }
-                    <style>
-            h2 {
-                color: #007BFF;
-            }
-            .social-icons a {
-                margin-right: 15px;
-                font-size: 24px;
-                color: #007BFF;
-                text-decoration: none;
-            }
-            .social-icons a:hover {
-                color: #0056b3;
-            }
-        </style>
-        <!-- Link to Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-    <body>
-        <section>
-            <img id="cat-picture" src="{{ url_for('static', filename='portfolio_picture.jpg') }}" alt="Random Cat Picture">
-            <br>
-            <button onclick="fetchCat()">Press Me!</button>
-            <h2>About Me</h2>
-            <p>
-                My name is Austin Xu, and I hold a bachelor's degree in Computer Information Systems with a focus on Data Analytics from Baruch College. 
-                I graduated in December 2024. I have a strong passion for data science and computer science, and I look forward to the opportunity to 
-                apply my skills in a professional setting.
-            </p>
-            <p>
-                Outside of work, I enjoy staying active by going to the gym, expressing my creativity by playing the guitar, and immersing myself 
-                in engaging stories through video games and novels. My favorite genre is science fiction, as it inspires my curiosity and interest 
-                in technology and innovation.
-            </p>
-            <div class="social-icons">
-                <a href="https://github.com/austinxu2002" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/austin-xu-b273a2244/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <a href="/">Back to Home</a>
-        </section>
-
+                .social-icons a:hover { color: #0056b3; }
+            </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        </head>
+        <body>
+            <section>
+                <img id="cat-picture" src="{{ url_for('static', filename='portfolio_picture.jpg') }}" alt="Profile Picture">
+                <br>
+                <button onclick="fetchCat()">Press Me!</button>
+                <h2>About Me</h2>
+                <p>
+                    My name is <strong>Austin Xu</strong>, and I am currently pursuing an <strong>MS in Accountancy</strong> at Baruch College, 
+                    with an expected graduation in <em>December 2026</em>. I previously completed my <strong>BBA in Computer Information Systems</strong> 
+                    with a focus on <strong>Data Analytics</strong>. This background allows me to combine financial accuracy with technical problem-solving and data-driven insights.
+                </p>
+                <p>
+                    I’ve always enjoyed working with data and finding the story behind the numbers. My experience building ETL pipelines in SQL, 
+                    analyzing large datasets in Python, and visualizing insights in Tableau and Power BI strengthened my analytical thinking and attention to detail. 
+                    What draws me to accounting is that it combines these analytical skills with financial reporting and strategic decision-making.
+                </p>
+                <p>
+                    Outside of work, I enjoy staying active by going to the gym, playing the guitar, and exploring science fiction stories through video games and novels — 
+                    they inspire my curiosity and passion for technology and innovation.
+                </p>
+                <div class="social-icons">
+                    <a href="https://github.com/austinxu2002" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/austin-xu-b273a2244/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <a href="/">Back to Home</a>
+            </section>
             <script>
                 async function fetchCat() {
                     const catImage = document.getElementById('cat-picture');
-                    const response = await fetch('https://api.thecatapi.com/v1/images/search', {
-                        headers: { 'x-api-key': 'live_CKqqCv69iZtjZpyiaOg0WYCCnSgVnkyYyah7fCmQySX0YOkFyHgPo69W02vhXEjJ' }
-                    });
+                    const response = await fetch('https://api.thecatapi.com/v1/images/search');
                     const data = await response.json();
                     catImage.src = data[0].url;
                 }
@@ -210,7 +192,8 @@ def about():
         </body>
         </html>
     ''')
-# School Projects Page
+
+# School Projects Page (FULL — Tableau + Infographics, with Blue Headings)
 @app.route('/school-projects')
 def school_projects():
     return render_template_string('''
@@ -222,7 +205,7 @@ def school_projects():
             <title>School Projects</title>
             <style>
                 body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-                h2 { color: #333; margin-top: 20px; }
+                h2 { color: #007BFF; margin-top: 20px; font-weight: bold; }
                 p { margin: 20px; font-size: 16px; }
                 .tableau-container {
                     margin: 40px auto;
@@ -237,174 +220,166 @@ def school_projects():
                     cursor: pointer;
                     transition: transform 0.2s;
                 }
-                .thumbnail:hover {
-                    transform: scale(1.1);
-                }
-                /* Modal Styles */
+                .thumbnail:hover { transform: scale(1.1); }
                 .modal {
                     display: none;
                     position: fixed;
                     z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
+                    left: 0; top: 0;
+                    width: 100%; height: 100%;
                     background-color: rgba(0, 0, 0, 0.8);
                     overflow: auto;
                 }
                 .modal-content {
-                    margin: auto;
-                    display: block;
-                    width: 80%;
-                    max-width: 700px;
+                    margin: auto; display: block;
+                    width: 80%; max-width: 700px;
                 }
                 .close {
-                    position: absolute;
-                    top: 20px;
-                    right: 35px;
-                    color: white;
-                    font-size: 30px;
-                    font-weight: bold;
+                    position: absolute; top: 20px; right: 35px;
+                    color: white; font-size: 30px; font-weight: bold;
                     cursor: pointer;
                 }
+                a.back { display:inline-block; margin: 20px 0; color:#007BFF; text-decoration:none; }
+                a.back:hover { text-decoration: underline; }
             </style>
         </head>
         <body>
             <h2>Data Analysis of Lung Cancer Rates</h2>
-            <p>This project involves taking cleaned data from a Harvard.edu study and running simple linear regressions and clustering models in Python to determine correlations between chemicals/particles, lung cancer rates and to identify high risk areas. An infographic was made using Canva to incorporate all the information and present it in a neat manner. Tableau Dashboards are used to make the data interactive.
-</p>
-            
+            <p>
+                This project uses cleaned data from a Harvard.edu study and applies simple linear regressions and clustering models in Python
+                to explore correlations between pollutants and lung cancer rates, and to identify high-risk areas. An infographic (below) and
+                interactive Tableau dashboards summarize the analysis.
+            </p>
+
             <!-- Infographic Thumbnails -->
-            <img src="{{ url_for('static', filename='lung_cancer_infographic_page1.png') }}" class="thumbnail" onclick="openModal('modal1')" alt="Lung Cancer Infographic Page 1">
-            <img src="{{ url_for('static', filename='lung_cancer_infographic_page2.png') }}" class="thumbnail" onclick="openModal('modal2')" alt="Lung Cancer Infographic Page 2">
+            <img src="{{ url_for('static', filename='lung_cancer_infographic_page1.png') }}"
+                 class="thumbnail" onclick="openModal('modal1')" alt="Lung Cancer Infographic Page 1">
+            <img src="{{ url_for('static', filename='lung_cancer_infographic_page2.png') }}"
+                 class="thumbnail" onclick="openModal('modal2')" alt="Lung Cancer Infographic Page 2">
 
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
                 <span class="close" onclick="closeModal('modal1')">&times;</span>
-                <img class="modal-content" src="{{ url_for('static', filename='lung_cancer_infographic_page1.png') }}" alt="Lung Cancer Infographic Page 1">
+                <img class="modal-content" src="{{ url_for('static', filename='lung_cancer_infographic_page1.png') }}" alt="Page 1">
             </div>
             <div id="modal2" class="modal">
                 <span class="close" onclick="closeModal('modal2')">&times;</span>
-                <img class="modal-content" src="{{ url_for('static', filename='lung_cancer_infographic_page2.png') }}" alt="Lung Cancer Infographic Page 2">
+                <img class="modal-content" src="{{ url_for('static', filename='lung_cancer_infographic_page2.png') }}" alt="Page 2">
             </div>
-            
+
             <!-- Tableau Dashboards for Lung Cancer -->
             <div class="tableau-container">
-                <div class='tableauPlaceholder' id='viz1736798127621' style='position: relative; width: 100%; height: 900px;'>
+                <div class='tableauPlaceholder' id='viz_lc1' style='position: relative; width: 100%; height: 900px;'>
                     <noscript>
-                        <a href='#'><img alt='Dashboard 1' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CI&#47;CIS-3920LungCancerDataDashboard1&#47;Dashboard1&#47;1_rss.png' style='border: none;' /></a>
+                        <a href='#'><img alt='Dashboard 1'
+                        src='https://public.tableau.com/static/images/CI/CIS-3920LungCancerDataDashboard1/Dashboard1/1_rss.png'
+                        style='border:none;'/></a>
                     </noscript>
                     <object class='tableauViz' style='width: 100%; height: 900px;'>
                         <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
                         <param name='embed_code_version' value='3' />
-                        <param name='name' value='CIS-3920LungCancerDataDashboard1&#47;Dashboard1' />
+                        <param name='name' value='CIS-3920LungCancerDataDashboard1/Dashboard1' />
                         <param name='tabs' value='no' />
                         <param name='toolbar' value='yes' />
                     </object>
                 </div>
-                <script type='text/javascript'>
-                    var scriptElement = document.createElement('script');
-                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                    document.getElementsByTagName('head')[0].appendChild(scriptElement);
-                </script>
             </div>
+
             <div class="tableau-container">
-                <div class='tableauPlaceholder' id='viz1736798175563' style='position: relative; width: 100%; height: 900px;'>
+                <div class='tableauPlaceholder' id='viz_lc2' style='position: relative; width: 100%; height: 900px;'>
                     <noscript>
-                        <a href='#'><img alt='Dashboard 5' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CI&#47;CIS-3920LungCancerDataDashboard2&#47;Dashboard5&#47;1_rss.png' style='border: none;' /></a>
+                        <a href='#'><img alt='Dashboard 5'
+                        src='https://public.tableau.com/static/images/CI/CIS-3920LungCancerDataDashboard2/Dashboard5/1_rss.png'
+                        style='border:none;'/></a>
                     </noscript>
                     <object class='tableauViz' style='width: 100%; height: 900px;'>
                         <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
                         <param name='embed_code_version' value='3' />
-                        <param name='name' value='CIS-3920LungCancerDataDashboard2&#47;Dashboard5' />
+                        <param name='name' value='CIS-3920LungCancerDataDashboard2/Dashboard5' />
                         <param name='tabs' value='no' />
                         <param name='toolbar' value='yes' />
                     </object>
                 </div>
-                <script type='text/javascript'>
-                    var scriptElement = document.createElement('script');
-                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                    document.getElementsByTagName('head')[0].appendChild(scriptElement);
-                </script>
             </div>
 
             <h2>Data Warehouse and ETL Pipeline Design of 311 Noise Complaints and DOB Stalled Construction Sites Data</h2>
-            <p>This project involves two years worth of raw data that is fetched from their respective APIs, cleaned using Python and then stored in BigQuery. In BigQuery, the cleaned data is used to construct the Data Warehouse by establishing the necessary keys, making the dimension tables and fact tables based on the design of the data warehouse using SQL. This warehouse design was created using Lucid Charts.</p>
-            
-            <!-- Tableau Dashboards for 311 Noise Complaints -->
+            <p>
+                This project integrates NYC 311 Noise Complaints and DOB Stalled Construction data (2023–2024) using Python and SQL.
+                The data was cleaned, stored in BigQuery, and visualized in Tableau using Lucidchart-designed schemas for dimensional modeling.
+            </p>
+
+            <!-- Tableau Dashboards for 311 Noise Complaints & DOB -->
             <div class="tableau-container">
-                <div class='tableauPlaceholder' id='viz1736798237680' style='position: relative; width: 100%; height: 900px;'>
+                <div class='tableauPlaceholder' id='viz_311_1' style='position: relative; width: 100%; height: 900px;'>
                     <noscript>
-                        <a href='#'><img alt='Dashboard 2' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CI&#47;CIS-4400311DataDashboard1&#47;Dashboard2&#47;1_rss.png' style='border: none;' /></a>
+                        <a href='#'><img alt='Dashboard 2'
+                        src='https://public.tableau.com/static/images/CI/CIS-4400311DataDashboard1/Dashboard2/1_rss.png'
+                        style='border:none;'/></a>
                     </noscript>
                     <object class='tableauViz' style='width: 100%; height: 900px;'>
                         <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
                         <param name='embed_code_version' value='3' />
-                        <param name='name' value='CIS-4400311DataDashboard1&#47;Dashboard2' />
+                        <param name='name' value='CIS-4400311DataDashboard1/Dashboard2' />
                         <param name='tabs' value='no' />
                         <param name='toolbar' value='yes' />
                     </object>
                 </div>
-                <script type='text/javascript'>
-                    var scriptElement = document.createElement('script');
-                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                    document.getElementsByTagName('head')[0].appendChild(scriptElement);
-                </script>
-            </div>
-            <div class="tableau-container">
-                <div class='tableauPlaceholder' id='viz1736798267371' style='position: relative; width: 100%; height: 900px;'>
-                    <noscript>
-                        <a href='#'><img alt='Dashboard 4' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CI&#47;CIS-4400311DataDashboard2&#47;Dashboard4&#47;1_rss.png' style='border: none;' /></a>
-                    </noscript>
-                    <object class='tableauViz' style='width: 100%; height: 900px;'>
-                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                        <param name='embed_code_version' value='3' />
-                        <param name='name' value='CIS-4400311DataDashboard2&#47;Dashboard4' />
-                        <param name='tabs' value='no' />
-                        <param name='toolbar' value='yes' />
-                    </object>
-                </div>
-                <script type='text/javascript'>
-                    var scriptElement = document.createElement('script');
-                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                    document.getElementsByTagName('head')[0].appendChild(scriptElement);
-                </script>
-            </div>
-            <div class="tableau-container">
-                <div class='tableauPlaceholder' id='viz1736798291319' style='position: relative; width: 100%; height: 900px;'>
-                    <noscript>
-                        <a href='#'><img alt='Dashboard 3' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CI&#47;CIS-4400DOBDataDashboard&#47;Dashboard3&#47;1_rss.png' style='border: none;' /></a>
-                    </noscript>
-                    <object class='tableauViz' style='width: 100%; height: 900px;'>
-                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                        <param name='embed_code_version' value='3' />
-                        <param name='name' value='CIS-4400DOBDataDashboard&#47;Dashboard3' />
-                        <param name='tabs' value='no' />
-                        <param name='toolbar' value='yes' />
-                    </object>
-                </div>
-                <script type='text/javascript'>
-                    var scriptElement = document.createElement('script');
-                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                    document.getElementsByTagName('head')[0].appendChild(scriptElement);
-                </script>
             </div>
 
-            <script>
-                function openModal(modalId) {
-                    document.getElementById(modalId).style.display = "block";
-                }
+            <div class="tableau-container">
+                <div class='tableauPlaceholder' id='viz_311_2' style='position: relative; width: 100%; height: 900px;'>
+                    <noscript>
+                        <a href='#'><img alt='Dashboard 4'
+                        src='https://public.tableau.com/static/images/CI/CIS-4400311DataDashboard2/Dashboard4/1_rss.png'
+                        style='border:none;'/></a>
+                    </noscript>
+                    <object class='tableauViz' style='width: 100%; height: 900px;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='embed_code_version' value='3' />
+                        <param name='name' value='CIS-4400311DataDashboard2/Dashboard4' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                    </object>
+                </div>
+            </div>
 
-                function closeModal(modalId) {
-                    document.getElementById(modalId).style.display = "none";
-                }
+            <div class="tableau-container">
+                <div class='tableauPlaceholder' id='viz_dob' style='position: relative; width: 100%; height: 900px;'>
+                    <noscript>
+                        <a href='#'><img alt='Dashboard 3'
+                        src='https://public.tableau.com/static/images/CI/CIS-4400DOBDataDashboard/Dashboard3/1_rss.png'
+                        style='border:none;'/></a>
+                    </noscript>
+                    <object class='tableauViz' style='width: 100%; height: 900px;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='embed_code_version' value='3' />
+                        <param name='name' value='CIS-4400DOBDataDashboard/Dashboard3' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                    </object>
+                </div>
+            </div>
+
+            <a class="back" href="/">Back to Home</a>
+
+            <script type='text/javascript'>
+                // Load Tableau API once
+                (function loadTableau(){
+                  var s = document.createElement('script');
+                  s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                  document.getElementsByTagName('head')[0].appendChild(s);
+                })();
+
+                function openModal(modalId) { document.getElementById(modalId).style.display = "block"; }
+                function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
             </script>
-            <a href="/">Back to Home</a>
         </body>
         </html>
     ''')
 
-
+# -----------------------------
+# PERSONAL PROJECTS (WORKING MODAL VERSION)
+# -----------------------------
 @app.route('/personal-projects')
 def personal_projects():
     return render_template_string('''
@@ -415,18 +390,20 @@ def personal_projects():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Personal Projects</title>
             <style>
-                body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-                section { padding: 20px; }
-                h2 { color: #333; }
+                body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; background-color: #fafafa; }
+                section { padding: 30px; }
+                h2 { color: #007BFF; }
                 .thumbnail {
-                    max-width: 400px; /* Increased size */
-                    margin: 15px; /* Adjusted spacing */
+                    width: 350px;
+                    height: auto;
+                    margin: 15px;
                     cursor: pointer;
+                    border-radius: 8px;
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
                 }
                 .thumbnail:hover {
-                    transform: scale(1.1); /* Pop-out effect */
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+                    transform: scale(1.08);
+                    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
                 }
                 .modal {
                     display: none;
@@ -436,13 +413,14 @@ def personal_projects():
                     top: 0;
                     width: 100%;
                     height: 100%;
-                    background-color: rgba(0, 0, 0, 0.8);
+                    background-color: rgba(0, 0, 0, 0.85);
                 }
                 .modal-content {
                     margin: auto;
                     display: block;
                     max-width: 80%;
                     max-height: 80%;
+                    border-radius: 10px;
                 }
                 .close {
                     position: absolute;
@@ -453,54 +431,49 @@ def personal_projects():
                     font-weight: bold;
                     cursor: pointer;
                 }
+                p { font-size: 15px; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; }
+                footer { text-align: center; margin-top: 30px; }
+                a { color: #007BFF; text-decoration: none; }
+                a:hover { text-decoration: underline; }
             </style>
         </head>
         <body>
             <section>
-                <h2>Personal Projects</h2>
-
-                <!-- Project Title -->
-                <h3>Analysis of Top 1000 Highest Grossing Movies</h3>
-
-                <!-- Project Description -->
+                <h2>Analysis of Top 1000 Highest Grossing Movies</h2>
                 <p>
                     This project focuses on the top 1,000 highest-grossing Hollywood films, with data current as of September 25, 2023.
                     The dataset was sourced from IMDb, processed and stored in SQL Server Management Studio (SSMS),
-                    and subsequently uploaded to Power BI for visualization. The goal of the project is to create insightful and interactive
-                    visual representations of the data to analyze trends and patterns in box office performance.
+                    and visualized in Power BI. The visualizations explore revenue patterns, correlations between
+                    budget and gross income, and performance by genre.
                 </p>
 
-                <!-- Infographic Thumbnails -->
-                <img src="{{ url_for('static', filename='GrossMoviesSalesPowerBI1.png') }}" class="thumbnail" onclick="openModal('modal1')" alt="Gross Movies Sales Power BI Page 1">
-                <img src="{{ url_for('static', filename='GrossMoviesSalesPowerBI2.png') }}" class="thumbnail" onclick="openModal('modal2')" alt="Gross Movies Sales Power BI Page 2">
+                <img src="{{ url_for('static', filename='GrossMoviesSalesPowerBI1.png') }}" class="thumbnail" onclick="openModal('modal1')">
+                <img src="{{ url_for('static', filename='GrossMoviesSalesPowerBI2.png') }}" class="thumbnail" onclick="openModal('modal2')">
 
-                <!-- Modal Structure -->
                 <div id="modal1" class="modal">
                     <span class="close" onclick="closeModal('modal1')">&times;</span>
-                    <img class="modal-content" src="{{ url_for('static', filename='GrossMoviesSalesPowerBI1.png') }}" alt="Gross Movies Sales Power BI Page 1">
+                    <img class="modal-content" src="{{ url_for('static', filename='GrossMoviesSalesPowerBI1.png') }}">
                 </div>
                 <div id="modal2" class="modal">
                     <span class="close" onclick="closeModal('modal2')">&times;</span>
-                    <img class="modal-content" src="{{ url_for('static', filename='GrossMoviesSalesPowerBI2.png') }}" alt="Gross Movies Sales Power BI Page 2">
+                    <img class="modal-content" src="{{ url_for('static', filename='GrossMoviesSalesPowerBI2.png') }}">
                 </div>
 
-                <a href="/">Back to Home</a>
+                <footer>
+                    <a href="/">Back to Home</a>
+                </footer>
             </section>
 
             <script>
-                function openModal(modalId) {
-                    document.getElementById(modalId).style.display = 'block';
-                }
-
-                function closeModal(modalId) {
-                    document.getElementById(modalId).style.display = 'none';
-                }
+                function openModal(id) { document.getElementById(id).style.display = "block"; }
+                function closeModal(id) { document.getElementById(id).style.display = "none"; }
             </script>
         </body>
         </html>
     ''')
-
-# Resume Page
+# -----------------------------
+# RESUME PAGE (UPDATED 2025 VERSION)
+# -----------------------------
 @app.route('/resume')
 def resume():
     return render_template_string('''
@@ -511,92 +484,125 @@ def resume():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Resume - Austin Xu</title>
             <style>
-                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-                h1, h2 { text-align: center; }
-                section { max-width: 800px; margin: 0 auto; }
+                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; }
+                section { max-width: 800px; margin: 0 auto; text-align: center; }
+                h1, h2, h3 { text-align: center; color: #007BFF; }
+                h1 { font-size: 20px; margin-bottom: 5px; }
+                h2 { font-size: 17px; margin-top: 25px; }
+                p { font-size: 12px; margin: 10px 0; }
                 a { color: #007BFF; text-decoration: none; }
                 a:hover { text-decoration: underline; }
-                ul { list-style-type: disc; margin-left: 20px; }
-                li { margin-bottom: 10px; }
+                .social-icons a {
+                    margin: 0 10px;
+                    text-decoration: none;
+                    color: #007BFF;
+                    font-size: 20px;
+                    transition: color 0.3s;
+                }
+                .social-icons a:hover { color: #0056b3; }
+                ul { text-align: left; display: inline-block; margin: 0 auto; font-size: 12px; }
+                li { margin-bottom: 8px; }
                 footer { text-align: center; margin-top: 30px; }
             </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         </head>
         <body>
             <section>
                 <h1>Austin Xu</h1>
-                <p style="text-align: center;">
-                    <a href="https://www.linkedin.com/in/austin-xu-b273a2244/" target="_blank">LinkedIn</a> |
-                    <a href="https://github.com/austinxu2002" target="_blank">GitHub</a> |
-                    <a href="https://public.tableau.com/app/profile/austin.xu/vizzes" target="_blank">Tableau</a> |
+                <p>Brooklyn, NY | (646) 467-2283 | 
                     <a href="mailto:xuaustin2002@gmail.com">xuaustin2002@gmail.com</a>
                 </p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/austin-xu-b273a2244/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/austinxu2002" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://public.tableau.com/app/profile/austin.xu/vizzes" target="_blank"><i class="fas fa-chart-line"></i></a>
+                </div>
+
                 <h2>Education</h2>
-                <p><strong>CUNY Baruch College</strong>, New York, NY<br>
-                Bachelor of Business Administration, Computer Information Systems | Data Analytics Track<br>
-                Minor: Communication Studies</p>
+                <p><strong>CUNY at Baruch College</strong> – New York, NY<br>
+                <em>BBA in Computer Information Systems, Data Analytics Track</em><br>
+                Minor in Communication Studies | Overall GPA: 3.6<br>
+                <em>August 2022 – December 2024</em><br>
+                Analytics Coursework: Data Mining for Business Analytics, Data Warehousing for Analytics, Data Visualization, Regression and Forecasting Models, Foundations of Predictive Analytics
+                <br><br>
+                <em>MS in Accountancy (CPA Eligible)</em><br>
+                <em>August 2025 – December 2026</em><br>
+                Relevant Accounting Coursework: Financial Reporting, Federal Income Tax & Theory, Intensive Law Survey, Intermediate Financial Accounting, Taxation of Business Entities, Auditing and Accounting Information Systems, Managerial Accounting, Corporate Finance, Strategic Business Communications
+                </p>
 
-                <h2>Technical Skills</h2>
-                <p><strong>Tools:</strong> Access, Excel, Tableau, Canva<br>
-                <strong>Languages:</strong> Python, SQL<br>
-                <strong>Libraries/Framework:</strong> Pandas, Seaborn, Numpy, Scikit-learn, Flask<br>
-                <strong>Databases:</strong> SSMS, BigQuery, MySQL</p>
+                <h2>Work Experience</h2>
+                <p><strong>Brooklyn Chinese American Association</strong> – Counselor<br>
+                <em>June 2019 – Present | Brooklyn, NY</em></p>
+                <ul>
+                    <li>Monitored homework completion and provided tutoring for classrooms of up to 25 students.</li>
+                    <li>Developed and delivered weekly lesson plans in English, STEM, gym, and arts & crafts, ensuring compliance with NYC DOE and afterschool program guidelines.</li>
+                    <li>Supervised and guided an assistant counselor, delegating responsibilities and fostering collaboration.</li>
+                    <li>Communicated with parents through meetings to discuss student progress and address concerns.</li>
+                </ul>
 
-                <h2>Professional Experience</h2>
-                <p><strong>Department For The Aging</strong>, New York, NY<br>
-                <em>Office of Information Technology Intern</em> | July 2024-August 2024</p>
+                <p><strong>NYC Department for the Aging</strong> – Office of Information Technology Intern<br>
+                <em>July 2024 – August 2024 | New York, NY</em></p>
                 <ul>
                     <li>Resolved technical issues via the ServiceNow platform, including addressing a CrowdStrike outage.</li>
                     <li>Gained experience using PXE for operating system deployment and worked with servers, network connectivity, and AirWatch.</li>
-                    <li>Contributed to a laptop maintenance project, involving registering unregistered laptops into AirWatch using hashing and command prompts, and performing software and application updates.</li>
+                    <li>Contributed to a laptop maintenance project, involving registering 100 unregistered laptops into AirWatch using hashing and command prompts, performing software and application updates, and maintaining an Excel spreadsheet.</li>
                 </ul>
 
-                <p><strong>Brooklyn Chinese American Association</strong>, Brooklyn, NY<br>
-                <em>BCA Counselor</em> | June 2019 - August 2022</p>
+                <p><strong>Noodle Lane</strong> – Employee<br>
+                <em>April 2024 – July 2024 | Brooklyn, NY</em></p>
                 <ul>
-                    <li>Designed lesson plans and extracurricular activities such as arts & crafts, and gym.</li>
-                    <li>Monitored the completion of assigned homework from official classes and provided tutoring.</li>
-                    <li>Organized and communicated with parents to arrange meetings.</li>
-                </ul>
-
-                <p><strong>Noodle Lane</strong>, Brooklyn, NY<br>
-                <em>Employee</em> | April 2024-July 2024</p>
-                <ul>
-                    <li>Prepared and served freshly made lemonade.</li>
-                    <li>Set up and dismantled the operation, including unloading inventory.</li>
-                    <li>Assisted with inventory management, including tracking stock levels and replenishing supplies.</li>
+                    <li>Prepared beverages and managed daily setup and dismantling of operations.</li>
+                    <li>Served an average of 150 customers per day, ensuring fast and friendly service in a high-volume environment.</li>
+                    <li>Maintained a clean and organized workspace in compliance with NYC Department of Health guidelines and standards.</li>
                 </ul>
 
                 <h2>Projects</h2>
-                <p><strong>CIS 3920 Data Mining for Business Analytics</strong> | Lead Programmer, Canva, and Tableau Designer<br>
+                <p><strong>CIS 3920 Data Mining for Business Analytics</strong> | Lead Programmer, Canva & Tableau Designer<br>
                 <em>Data Analysis of Lung Cancer Rates</em></p>
                 <ul>
                     <li>Analyzed cleaned data from a Harvard.edu study using simple linear regressions and clustering models in Python.</li>
                     <li>Determined correlations between chemicals/particles and lung cancer rates, identifying high-risk areas.</li>
-                    <li>Created an infographic using Canva and interactive Tableau Dashboards for data presentation.</li>
+                    <li>Created an infographic using Canva and interactive Tableau dashboards for data presentation.</li>
                 </ul>
+
                 <p><strong>CIS 4400 Data Warehousing for Analytics</strong> | Lead Programmer, Tableau Designer<br>
                 <em>Data Warehouse and ETL Pipeline Design of 311 Noise Complaints and DOB Stalled Construction Sites Data</em></p>
                 <ul>
-                    <li>Fetched two years of raw data via APIs, cleaned it using Python, and stored it in BigQuery.</li>
-                    <li>Designed and constructed a Data Warehouse in BigQuery with SQL, including dimension and fact tables.</li>
+                    <li>Fetched two years of raw data (2023–2024) via APIs, cleaned it using Python, and stored it in BigQuery.</li>
+                    <li>Designed and constructed a data warehouse in BigQuery with SQL, including dimension and fact tables.</li>
                     <li>Visualized the warehouse design using Lucid Charts.</li>
                 </ul>
+
                 <p><strong>Personal Portfolio Website</strong></p>
                 <ul>
-                    <li>Created a website using Flask and deployed it on Google Cloud.</li>
-                    <li>Showcased school and personal projects with features like music, backgrounds, APIs, and icons.</li>
+                    <li>Created a website using Flask as a staging site and deployed it on Google Cloud.</li>
+                    <li>Showcased school and personal projects, including features like music, backgrounds, APIs, and icons.</li>
                 </ul>
+
+                <p><strong>Analysis of Top 1000 Highest-Grossing Movies</strong></p>
+                <ul>
+                    <li>Focused on the top 1,000 highest-grossing Hollywood films, with data current as of September 25, 2023.</li>
+                    <li>Processed and stored the dataset from IMDb in SQL Server Management Studio (SSMS).</li>
+                    <li>Uploaded the data to Power BI for visualization, creating interactive insights on box office performance.</li>
+                </ul>
+
+                <h2>Skills</h2>
+                <p>
+                    <strong>Tools/Databases:</strong> Access, Excel, Tableau, Canva, Power BI, Word, SSMS, BigQuery, MySQL<br>
+                    <strong>Languages/Libraries/Frameworks:</strong> Python, SQL, Pandas, Seaborn, NumPy, Scikit-learn, Flask
+                </p>
+
+                <footer>
+                    <a href="/">Back to Home</a>
+                </footer>
             </section>
-            <footer>
-                <a href="/">Back to Home</a>
-            </footer>
         </body>
         </html>
     ''')
 
-
-# Run Flask App
+# -----------------------------
+# FLASK APP RUNNER
+# -----------------------------
 if __name__ == '__main__':
-    # Commenting out the IPython display part
-    # display(HTML('<a href="http://127.0.0.1:8080" target="_blank">Open Portfolio Website</a>'))
     app.run(debug=True, port=8080, use_reloader=False)
+
